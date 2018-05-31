@@ -1,6 +1,11 @@
 This is a fork from Melver's CMurphi (https://github.com/melver/cmurphi).
-The only change made is a minor bugfix in ensuring proper variable
-scope within the cases of a switch statement.
+The only change made is a minor bugfix in cpp_code.cpp ensuring proper variable
+scope within the cases of a switch statement. 
+I cannot guarantee that this modification has not caused unwanted changes
+to CMurphi, nor that it has not introduced any further bugs, and therefore
+urge anyone intending to use CMurphi to use the original version available
+from Melver's repository above.
+
 Please see the original repository for CMurphi, which is licensed under
 the GNU LGPL - see details below.
 
