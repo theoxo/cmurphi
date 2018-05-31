@@ -2658,12 +2658,15 @@ const char *ifstmt::generate_code()
  ********************/
 const char *caselist::generate_code()
 {
-  for (exprlist * v = values; v != NULL; v = v->next)
-    fprintf(codefile, "case %s:\n", v->e->generate_code());
+  for (exprlist * v = values; v != NULL; v = v->next) {
+    fprintf(codefile, "case %s:\n ", v->e->generate_code());
+  }
 
-  for (stmt * b = body; b != NULL; b = b->next)
+  fprintf(codefile, "{"); // ensure variable scope is local to case
+  for (stmt * b = body; b != NULL; b = b->next){
     b->generate_code();
-  fprintf(codefile, "break;\n");
+  }
+  fprintf(codefile, "break;}\n");
   return "ERROR!";
 }
 
@@ -2678,12 +2681,12 @@ const char *switchstmt::generate_code()
   for (caselist * c = cases; c != NULL; c = c->next)
     c->generate_code();
   if (elsecode != NULL) {
-    fprintf(codefile, "default:\n");
+    fprintf(codefile, "default:{\n");
 
     for (stmt * b = elsecode; b != NULL; b = b->next)
       b->generate_code();
 
-    fprintf(codefile, "break;\n");
+    fprintf(codefile, "break;}\n");
   }
   fprintf(codefile, "}\n");
   return "ERROR!";
